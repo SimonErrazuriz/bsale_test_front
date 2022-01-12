@@ -16,7 +16,7 @@ const setTemplate = (producto) => {
     const fragment = document.createDocumentFragment();
 
     if (producto.url_image == '' || producto.url_image == null) {
-        producto.url_image = 'img/image-not-found.png'
+        producto.url_image = '../assets/img/image-not-found.png'
     }
 
     clone.querySelector('.card-img-top').setAttribute('src', producto.url_image);
