@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:4001";
+const API_URL = "https://test-bsale-back.herokuapp.com";
 
 fetch(`${API_URL}/productos`)
     .then((res) => res.json())
