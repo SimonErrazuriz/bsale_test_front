@@ -1,13 +1,26 @@
-const API_URL = "https://test-bsale-back.herokuapp.com";
 
-fetch(`${API_URL}/productos`)
+/* Recoger el parámetro buscar de la URL */
+const parametros = window.location.search;
+const urlParams = new URLSearchParams(parametros);
+const buscar = urlParams.get('buscar');
+
+/* Fetch API */
+const API_URL = "https://test-bsale-back.herokuapp.com";
+fetch(`${API_URL}/productos/${buscar}`)
     .then((res) => res.json())
     .then((productos) => {
-        productos.forEach((producto) => {
-            setTemplate(producto);
-        });
+        if (productos.length === 0) {
+            const h2 = document.getElementById("sin-resultados");
+            const texto = document.createTextNode("No existen productos asociados a su búsqueda");
+            h2.appendChild(texto);
+        } else {
+            productos.forEach((producto) => {
+                setTemplate(producto);
+            });
+        }
     });
 
+/* Rellenar template */
 const setTemplate = (producto) => {
 
     const flex = document.querySelector('.flex');
@@ -25,7 +38,7 @@ const setTemplate = (producto) => {
     if (producto.discount > 0) {
         clone.querySelector('.discount').innerHTML = `-${producto.discount}%`;
     }
-    
+
     fragment.appendChild(clone);
     flex.appendChild(fragment);
 }
